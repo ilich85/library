@@ -1,0 +1,17 @@
+.card-image {
+  height: 100px;
+  width: 100%;
+  text-align: center;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+}
+
+.hovered {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: 0.5s all;
+  z-index: 5;
+}

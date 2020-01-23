@@ -1,0 +1,23 @@
+<div class="register">
+  <h4>Register</h4>
+  <div>
+    <label>Username</label><br/>
+    <input type="text" [(ngModel)]="user.username"/>
+  </div>
+  <div>
+    <label>Password</label><br/>
+    <input type="password" [(ngModel)]="user.password"/>
+  </div>
+  <div>
+    <label>Role</label><br/>
+    <select name="role" [(ngModel)]="user.role">
+      <option value="user">User</option>
+      <option value="admin">Admin</option>
+    </select>
+  </div>
+  <div>
+    <button (click)="register()" class="btn btn-primary">Apply</button>
+    <button routerLink="/home" class="btn btn-primary">Cancel</button>
+  </div>
+  <br/>
+</div>
