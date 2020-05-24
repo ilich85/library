@@ -1,0 +1,7 @@
+<app-header></app-header>
+<div class="container">
+  <app-book-edit-info [isbn]="isbn"></app-book-edit-info>
+  <app-book-edit-image [isbn]="isbn"></app-book-edit-image>
+  <app-book-edit-file [isbn]="isbn"></app-book-edit-file>
+  <a routerLink="/book-info/{{isbn}}" class="btn btn-primary cancel-button">Cancel</a>
+</div>

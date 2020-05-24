@@ -1,0 +1,37 @@
+<div class="update-book-info">
+  <h4>Update book info</h4>
+  <div class="book-form">
+    <div>
+      <label>ISBN</label>
+      <br/>
+      <p>{{isbn}}</p>
+    </div>
+    <div>
+      <label>Title</label>
+      <br/>
+      <input type="text" [(ngModel)]="book.title">
+    </div>
+
+    <div>
+      <label>Authors</label>
+      <br/>
+      <input type="text" [(ngModel)]="book.authors">
+    </div>
+    <div>
+      <label>Year</label>
+      <br/>
+      <input type="number" [(ngModel)]="book.year">
+    </div>
+    <div>
+      <label>Quantity</label>
+      <br/>
+      <input type="number" [(ngModel)]="quantity.amount">
+    </div>
+  </div>
+  <div class="buttons">
+    <a (click)="updateInfo()" class="btn btn-primary">Update</a>
+  </div>
+</div>
+
+
+

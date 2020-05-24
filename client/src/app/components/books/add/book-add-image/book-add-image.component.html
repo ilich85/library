@@ -1,0 +1,13 @@
+<app-header></app-header>
+<div class="container">
+  <div class="add-info">
+    <h3>Adding book<br/>
+      Step 2 of 3</h3>
+    <br/>
+    <br/>
+    <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+    <a (click)="fileInput.click()" class="btn btn-primary">Select File</a>
+    <a (click)="addImage()" class="btn btn-primary">Continue</a>
+    <a routerLink="/admin" class="btn btn-primary">Cancel</a>
+  </div>
+</div>

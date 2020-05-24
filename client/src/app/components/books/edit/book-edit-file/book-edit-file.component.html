@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="update-file">
+    <h4>Update book file</h4>
+    <br/>
+    <br/>
+    <input type="file" style="display: none" (change)="onFileChanged($event)" #fileInput>
+    <a (click)="fileInput.click()" class="btn btn-primary">Select File</a>
+    <a (click)="updateFile()" class="btn btn-primary">Update</a>
+  </div>
+</div>
+
+

@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="update-book-image">
+    <h4>Update book image</h4>
+    <app-image [isbn]="isbn"></app-image>
+    <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+    <a (click)="fileInput.click()" class="btn btn-primary">Select File</a>
+    <a (click)="updateImage()" class="btn btn-primary">Update</a>
+  </div>
+</div>
+
+

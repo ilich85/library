@@ -1,0 +1,38 @@
+<app-header></app-header>
+<div class="container">
+  <div class="add-info">
+    <h3>Adding book<br/>
+      Step 1 of 3</h3>
+    <div class="book-form">
+      <div>
+        <label>ISBN</label>
+        <br/>
+        <input name="isbn" type="number" [(ngModel)]="book.isbn">
+      </div>
+      <div>
+        <label>Title</label>
+        <br/>
+        <input type="text" [(ngModel)]="book.title">
+      </div>
+      <div>
+        <label>Authors</label>
+        <br/>
+        <input type="text" [(ngModel)]="book.authors">
+      </div>
+      <div>
+        <label>Year</label>
+        <br/>
+        <input type="number" [(ngModel)]="book.year">
+      </div>
+      <div>
+        <label>Quantity</label>
+        <br/>
+        <input type="number" [(ngModel)]="quantity">
+      </div>
+    </div>
+    <div class="buttons">
+      <a (click)="addInfo()" class="btn btn-primary">Continue</a>
+      <a routerLink="/admin" class="btn btn-primary">Cancel</a>
+    </div>
+  </div>
+</div>

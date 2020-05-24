@@ -1,0 +1,26 @@
+.add-info {
+  position: relative;
+  top: 20px;
+  left: 30%;
+  width: 40%;
+  height: inherit;
+  text-align: center;
+}
+
+.book-form {
+
+  border: 1px solid grey;
+  border-radius: 2px;
+}
+
+.buttons{
+  position: relative;
+  top: 20px;
+}
+
+input[type=text],
+input[type=number] {
+  width: 30%;
+  height: 20px;
+  text-align: center;
+}

@@ -1,0 +1,17 @@
+td, th, tr {
+  border: 1px dashed black;
+  text-align: center;
+}
+
+.user-table {
+  position: relative;
+  top: 20px;
+  left: 25%;
+  width: 50%;
+  border: 1px solid black;
+}
+
+.remove-button, .reset-button {
+  width: 20px;
+  height: 20px;
+}
