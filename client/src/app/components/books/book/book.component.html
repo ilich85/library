@@ -1,0 +1,16 @@
+<div class="col s4">
+  <div class="card">
+    <div class="book">
+      <h5>{{book.title}}</h5>
+      <div class="card-image">
+        <div class="book-image">
+          <app-image [isbn]="isbn"></app-image>
+        </div>
+      </div>
+      <div class="card-content">
+        <h6>Authors: {{book.authors}}</h6>
+        <a routerLink="/book-info/{{isbn}}" class="btn btn-primary">Book info</a>
+      </div>
+    </div>
+  </div>
+</div>

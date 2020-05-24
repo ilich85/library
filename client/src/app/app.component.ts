@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {UsersService} from './services/users.service';
-import {BooksService} from './services/books.service';
+import {UsersService} from './services/users/users.service';
+import {BooksService} from './services/books/books.service';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +9,4 @@ import {BooksService} from './services/books.service';
   providers: [ UsersService, BooksService]
 })
 export class AppComponent {
-  title = 'Online Library';
 }

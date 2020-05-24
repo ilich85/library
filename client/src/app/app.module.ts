@@ -1,44 +1,67 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
-
 import {AppComponent} from './app.component';
 import {RouterModule} from '@angular/router';
 import {routing} from './app.routing';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
-import {HttpClientModule} from "@angular/common/http";
-import {BaseCookieOptions, CookieService, CookieOptions} from 'angular2-cookie';
-import {BooksService} from "./services/books.service";
-import {UsersService} from "./services/users.service";
-import {HomeComponent} from './components/home/home.component';
+import {BaseCookieOptions, CookieOptions, CookieService} from 'angular2-cookie';
+import {HttpClientModule} from '@angular/common/http';
 import {LoginComponent} from './components/login/login.component';
-import {NavComponent} from './components/nav/nav.component';
-import {BookComponent} from './components/book/book.component';
-import {BooksListComponent} from './components/books-list/books-list.component';
-import {BookAddComponent} from './components/book-add/book-add.component';
-import {BookEditComponent} from './components/book-edit/book-edit.component';
-import {UserComponent} from "./components/user/user.component";
-import {UsersListComponent} from './components/users-list/users-list.component';
-import {UserAddComponent} from './components/user-add/user-add.component';
-import {UserEditComponent} from './components/user-edit/user-edit.component';
-import { BooksAtUserComponent } from './components/books-at-user/books-at-user.component';
+import {LogoutComponent} from './components/logout/logout.component';
+import {HomeComponent} from './components/home/home.component';
+import {HeaderComponent} from './components/common/header/header.component';
+import {BookComponent} from './components/books/book/book.component';
+import {BookInfoComponent} from './components/books/book-info/book-info.component';
+import {BookAddFileComponent} from './components/books/add/book-add-file/book-add-file.component';
+import {BookAddImageComponent} from './components/books/add/book-add-image/book-add-image.component';
+import {BookAddInfoComponent} from './components/books/add/book-add-info/book-add-info.component';
+import {BooksListComponent} from './components/books/books-list/books-list.component';
+import {BookEditComponent} from './components/books/edit/book-edit/book-edit.component';
+import {BookEditFileComponent} from './components/books/edit/book-edit-file/book-edit-file.component';
+import {BookEditImageComponent} from './components/books/edit/book-edit-image/book-edit-image.component';
+import {BookEditInfoComponent} from './components/books/edit/book-edit-info/book-edit-info.component';
+import {BookReadComponent} from './components/books/book-read/book-read.component';
+import {ImageComponent} from './components/books/image/image.component';
+import {UserProfileComponent} from './components/users/user-profile/user-profile.component';
+import {UserAddComponent} from './components/users/user-add/user-add.component';
+import {UserPasswordChangeComponent} from './components/users/user-password-change/user-password-change.component';
+import {UsersListComponent} from './components/users/users-list/users-list.component';
+import {BooksService} from './services/books/books.service';
+import {AdminComponent} from './components/admin/admin.component';
+import {UsersService} from './services/users/users.service';
+import {FileService} from './services/books/files.service';
+import {PasswordService} from './services/users/password.service';
+import {PdfViewerModule} from 'ng2-pdf-viewer';
+import {StoreService} from './services/users/store.service';
+import {QuantityService} from './services/books/quantity.service';
+import {ImagesService} from './services/books/images.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    HeaderComponent,
     HomeComponent,
-    NavComponent,
+    LoginComponent,
+    LogoutComponent,
     BookComponent,
-    BooksListComponent,
-    BookAddComponent,
+    BookAddFileComponent,
+    BookAddInfoComponent,
     BookEditComponent,
-    UserComponent,
-    UsersListComponent,
+    BooksListComponent,
+    UserProfileComponent,
     UserAddComponent,
-    UserEditComponent,
-    BooksAtUserComponent
+    UserPasswordChangeComponent,
+    UsersListComponent,
+    AdminComponent,
+    BookAddImageComponent,
+    BookEditFileComponent,
+    BookEditImageComponent,
+    BookEditInfoComponent,
+    BookReadComponent,
+    BookInfoComponent,
+    ImageComponent
   ],
   imports: [
     BrowserModule,
@@ -46,10 +69,12 @@ import { BooksAtUserComponent } from './components/books-at-user/books-at-user.c
     FormsModule,
     HttpModule,
     HttpClientModule,
-    routing
+    routing,
+    PdfViewerModule
   ],
-  providers: [{provide: CookieOptions, useClass: BaseCookieOptions},
-    CookieService, BooksService, UsersService],
+  providers: [CookieService, {provide: CookieOptions, useClass: BaseCookieOptions},
+    BooksService, QuantityService, ImagesService, FileService,
+    UsersService, PasswordService, StoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

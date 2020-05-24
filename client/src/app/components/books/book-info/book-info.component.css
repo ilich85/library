@@ -1,0 +1,27 @@
+.book-info-image {
+  position: absolute;
+  top: 15%;
+  left: 5%;
+  height: 450px;
+  width: 450px;
+}
+
+.book-info {
+  position: absolute;
+  top: 15%;
+  left: 55%;
+  height: 75%;
+  text-align: center;
+}
+
+.admin-buttons {
+  position: relative;
+  top: 45%;
+  left: 15%;
+}
+
+.user-buttons {
+  position: relative;
+  top: 65%;
+  left: 15%;
+}

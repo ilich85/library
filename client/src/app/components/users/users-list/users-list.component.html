@@ -1,0 +1,29 @@
+<app-header></app-header>
+<div class="container">
+  <table class="user-table">
+    <tr>
+      <th>Username</th>
+      <th>Role</th>
+      <th>Reset<br/>
+        password
+      </th>
+      <th>Remove user</th>
+    </tr>
+    <ng-container *ngFor="let u of users">
+      <tr>
+        <td>{{u.username}}</td>
+        <td>{{u.role}}</td>
+        <td>
+          <a (click)="resetPassword(u.username)">
+            <img class="reset-button" src="../../../../assets/images/reset.png"/>
+          </a>
+        </td>
+        <td>
+          <a (click)="removeUser(u.username)">
+            <img class="remove-button" src="../../../../assets/images/remove.png"/>
+          </a>
+        </td>
+      </tr>
+    </ng-container>
+  </table>
+</div>
