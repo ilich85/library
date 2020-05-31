@@ -1,11 +1,13 @@
 package com.ilich.controller.user;
 
+import com.ilich.model.Result;
 import com.ilich.model.user.User;
 import com.ilich.service.user.UserService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import static com.ilich.StringProperties.EXISTS;
-import static org.apache.logging.log4j.util.Base64Util.encode;
 
 @RestController
 @RequestMapping("/users")
@@ -19,12 +21,14 @@ public class RegisterController {
     }
 
     @PostMapping
-    public String addNewUser(@RequestBody User user) {
+    public ResponseEntity<?> addNewUser(@RequestBody User user) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String result = EXISTS;
         if (userService.getUserByUsername(user.getUsername()) == null) {
-            user.setPassword(encode(user.getPassword()));
+            user.setPassword(encoder.encode(user.getPassword()));
             user.setRole(user.getRole());
-            return userService.addNewUser(user);
+            result = userService.addNewUser(user);
         }
-        return EXISTS;
+        return ResponseEntity.ok(new Result(result));
     }
 }

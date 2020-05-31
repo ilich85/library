@@ -1,6 +1,8 @@
 package com.ilich.controller.book;
 
+import com.ilich.model.Result;
 import com.ilich.service.book.ImageService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,24 +25,24 @@ public class ImageController {
     }
 
     @GetMapping
-    public String getImage(@PathVariable long isbn) throws IOException {
+    public ResponseEntity<?> getImage(@PathVariable long isbn) throws IOException {
         byte[] imageBytes = imageService.get(isbn);
+        String result = "";
         if (imageBytes.length > 0) {
             InputStream is = new BufferedInputStream(new ByteArrayInputStream(imageBytes));
             String mimeType = URLConnection.guessContentTypeFromStream(is);
-            return "data:" + mimeType + ";base64,"
-                    + Base64.getEncoder().encodeToString(imageBytes);
+            result = "data:" + mimeType + ";base64," + Base64.getEncoder().encodeToString(imageBytes);
         }
-        return null;
+        return ResponseEntity.ok(new Result(result));
     }
 
     @PostMapping
-    public String saveImage(@PathVariable long isbn, @RequestParam MultipartFile image) {
-        return imageService.save(isbn, image);
+    public ResponseEntity<?> saveImage(@PathVariable long isbn, @RequestParam MultipartFile image) {
+        return ResponseEntity.ok(new Result(imageService.save(isbn, image)));
     }
 
     @PutMapping
-    public String updateImage(@PathVariable long isbn, @RequestParam MultipartFile image) {
-        return imageService.update(isbn, image);
+    public ResponseEntity<?> updateImage(@PathVariable long isbn, @RequestParam MultipartFile image) {
+        return ResponseEntity.ok(new Result(imageService.update(isbn, image)));
     }
 }

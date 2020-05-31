@@ -2,9 +2,10 @@ package com.ilich;
 
 public interface StringProperties {
 
+    String HOST = "http://localhost:4200";
     String PATH_TO_FILES = "D://files/";
     String PATH_TO_IMAGES = "D://images/";
-    String RESULT = "result";
+    String SECRET="SECRET LIBRARY";
     String SUCCESS = "success";
     String FAIL = "fail";
     String USERNAME = "username";

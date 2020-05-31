@@ -1,6 +1,6 @@
 export class Constants {
   public static hostUrl: string = 'http://localhost:8080';
-  public static login: string = '/login';
+  public static login: string = '/authenticate';
   public static books: string = '/books';
   public static users: string = '/users';
   public static files: string = '/files/';
@@ -10,7 +10,7 @@ export class Constants {
   public static cgange: string = '/change';
   public static reset: string = '/reset';
   public static store: string = '/store/';
-  public static clear: string = '/clear';
+  public static clear: string = 'clear';
   public static success: string = 'success';
   public static image: string = 'image';
   public static file: string = 'file';
