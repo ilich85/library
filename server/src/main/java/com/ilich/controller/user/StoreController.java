@@ -1,5 +1,6 @@
 package com.ilich.controller.user;
 
+import com.ilich.model.Result;
 import com.ilich.model.book.Book;
 import com.ilich.model.book.Quantity;
 import com.ilich.model.user.Store;
@@ -7,6 +8,7 @@ import com.ilich.service.book.BookService;
 import com.ilich.service.book.QuantityService;
 import com.ilich.service.user.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -31,7 +33,41 @@ public class StoreController {
     }
 
     @GetMapping("/{username}")
-    public Set<Book> getBooksAtUser(@PathVariable String username) {
+    public ResponseEntity<?> getBooksAtUser(@PathVariable String username) {
+        return ResponseEntity.ok(getBooksAtUserStore(username));
+    }
+
+
+    @PostMapping("/{isbn}")
+    public ResponseEntity<?> addBookToStore(@PathVariable long isbn, @RequestBody String username) {
+        String result = FAIL;
+        if (updateQuantity(isbn, true)) {
+            result = storeService.addBookToStore(new Store(username, isbn));
+        }
+        return ResponseEntity.ok(new Result(result));
+    }
+
+    @PutMapping("/{isbn}")
+    public ResponseEntity<?> removeBookFromStore(@PathVariable long isbn, @RequestBody String username) {
+        String result = FAIL;
+        if (updateQuantity(isbn, true)) {
+            result = storeService.removeBookFromStore(username, isbn);
+        }
+        return ResponseEntity.ok(new Result(result));
+    }
+
+    @PutMapping("/clear")
+    public ResponseEntity<?> removeBooksFromStoreBeforeRemoveUser(@RequestBody String username) {
+        String result = FAIL;
+        for (Book book : getBooksAtUserStore(username)) {
+            if (updateQuantity(book.getIsbn(), false)) {
+                result = storeService.removeBooksBeforeRemoveUser(username);
+            }
+        }
+        return ResponseEntity.ok(new Result(result));
+    }
+
+    private Set<Book> getBooksAtUserStore(String username) {
         Set<Book> booksAtUser = new HashSet<>();
         for (Store store : storeService.getBooksAtUser(username)) {
             booksAtUser.add(bookService.getBookByISBN(store.getIsbn()));
@@ -39,31 +75,6 @@ public class StoreController {
         return booksAtUser;
     }
 
-    @PostMapping("/{isbn}")
-    public String addBookToStore(@PathVariable long isbn, @RequestBody String username) {
-        if (updateQuantity(isbn, true)) {
-            return storeService.addBookToStore(new Store(username, isbn));
-        }
-        return FAIL;
-    }
-
-    @PutMapping("/{isbn}")
-    public String removeBookFromStore(@PathVariable long isbn, @RequestBody String username) {
-        if (updateQuantity(isbn, false)) {
-            return storeService.removeBookFromStore(username, isbn);
-        }
-        return FAIL;
-    }
-
-    @PutMapping("/clear")
-    public String removeBooksFromStoreBeforeRemoveUser(@RequestBody String username) {
-        for (Book book : getBooksAtUser(username)) {
-            if (!updateQuantity(book.getIsbn(), false)) {
-                return FAIL;
-            }
-        }
-        return storeService.removeBooksBeforeRemoveUser(username);
-    }
 
     private boolean updateQuantity(long isbn, boolean isAddingToStore) {
         Quantity quantity = quantityService.getQuantity(isbn);

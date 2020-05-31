@@ -6,10 +6,8 @@ import {RouterModule} from '@angular/router';
 import {routing} from './app.routing';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
-import {BaseCookieOptions, CookieOptions, CookieService} from 'angular2-cookie';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {LoginComponent} from './components/login/login.component';
-import {LogoutComponent} from './components/logout/logout.component';
 import {HomeComponent} from './components/home/home.component';
 import {HeaderComponent} from './components/common/header/header.component';
 import {BookComponent} from './components/books/book/book.component';
@@ -37,6 +35,10 @@ import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {StoreService} from './services/users/store.service';
 import {QuantityService} from './services/books/quantity.service';
 import {ImagesService} from './services/books/images.service';
+import {LoginService} from './services/users/login.service';
+import {TokenInterceptor} from './auth/token.interceptor';
+import {TokenStorage} from './auth/token.storage';
+import {DataParserService} from './services/data.parser';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,6 @@ import {ImagesService} from './services/books/images.service';
     HeaderComponent,
     HomeComponent,
     LoginComponent,
-    LogoutComponent,
     BookComponent,
     BookAddFileComponent,
     BookAddInfoComponent,
@@ -72,9 +73,10 @@ import {ImagesService} from './services/books/images.service';
     routing,
     PdfViewerModule
   ],
-  providers: [CookieService, {provide: CookieOptions, useClass: BaseCookieOptions},
-    BooksService, QuantityService, ImagesService, FileService,
-    UsersService, PasswordService, StoreService],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    BooksService, QuantityService, ImagesService, FileService, TokenStorage,
+    LoginService, UsersService, PasswordService, StoreService, DataParserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

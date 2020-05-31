@@ -1,5 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {ImagesService} from '../../../../services/books/images.service';
+import {DataParserService} from '../../../../services/data.parser';
+import {Constants} from '../../../../constants/constants';
+import {MessageConstants} from '../../../../constants/message-constants';
 
 @Component({
   selector: 'app-book-edit-image',
@@ -12,7 +15,7 @@ export class BookEditImageComponent {
   private isbn;
   private selectedImage: File = null;
 
-  constructor(private imagesService: ImagesService) {
+  constructor(private imagesService: ImagesService, private  parser: DataParserService) {
   }
 
   onFileChanged(event) {
@@ -20,6 +23,14 @@ export class BookEditImageComponent {
   }
 
   updateImage() {
-    this.imagesService.updateBookImage(this.isbn, this.selectedImage);
+    this.imagesService.updateBookImage(this.isbn, this.selectedImage).subscribe(
+      res => {
+        const response = this.parser.parseData(res);
+        if (response.result === `${Constants.success}`) {
+          alert(`${MessageConstants.imageUpdated}`);
+        } else {
+          alert(`${MessageConstants.imageNotUpdated}`);
+        }
+      });
   }
 }

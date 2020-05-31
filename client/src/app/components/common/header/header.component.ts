@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {CookieService} from 'angular2-cookie/core';
+import {LoginService} from '../../../services/users/login.service';
 
 @Component({
   selector: 'app-header',
@@ -9,12 +9,14 @@ import {CookieService} from 'angular2-cookie/core';
 })
 export class HeaderComponent {
 
-  constructor(private router: Router, private cookieService: CookieService) {
+  constructor(private router: Router, private loginService: LoginService) {
+  }
+
+  isAdmin() {
+    return this.loginService.isAdmin();
   }
 
   logout() {
-    this.cookieService.remove('username');
-    this.cookieService.remove('role');
-    this.router.navigate(['/']);
+    this.loginService.logout();
   }
 }

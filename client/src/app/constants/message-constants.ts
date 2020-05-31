@@ -15,6 +15,7 @@ export class MessageConstants {
   public static fileNotAdded: string = 'Book file was not added.';
   public static fileUpdated: string = 'Book file was updated successfully.';
   public static fileNotUpdated: string = 'Book file was not updated.';
+  public static bookExists: string = 'Book with such isbn already exists.';
   public static bookInfoWasNotAdded: string = 'Book info was not added.';
   public static bookInfoUpdated: string = 'Book info was updated successfully.';
   public static bookInfoWasNotUpdated: string = 'Book info was not updated.';

@@ -1,10 +1,8 @@
 package com.ilich.controller.user;
 
-import com.ilich.model.user.User;
 import com.ilich.service.user.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -18,12 +16,12 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public ResponseEntity<?> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @DeleteMapping("/{username}")
-    public String deleteUser(@PathVariable String username) {
-        return userService.deleteUser(username);
+    public ResponseEntity<?> deleteUser(@PathVariable String username) {
+        return ResponseEntity.ok(userService.deleteUser(username));
     }
 }

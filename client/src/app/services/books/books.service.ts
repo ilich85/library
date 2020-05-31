@@ -1,14 +1,12 @@
-import {Http} from '@angular/http';
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
 import {Constants} from '../../constants/constants';
-import {MessageConstants} from '../../constants/message-constants';
-import {RouteConstants} from '../../constants/route-constants';
+import {HttpClient} from '@angular/common/http';
+
 
 @Injectable()
 export class BooksService {
 
-  constructor(private http: Http, private router: Router) {
+  constructor(private http: HttpClient) {
   }
 
   getAllBooks() {
@@ -20,49 +18,15 @@ export class BooksService {
   }
 
   addBookInfo(book) {
-    this.http.post(`${Constants.hostUrl}${Constants.books}`, book).subscribe(
-      res => {
-        if (res.text() === `${Constants.success}`) {
-          return;
-        } else {
-          alert(`${MessageConstants.bookInfoWasNotAdded}`);
-        }
-      },
-      err => {
-        alert(`${MessageConstants.serverError}`);
-        return err;
-      });
+    return this.http.post(`${Constants.hostUrl}${Constants.books}`, book);
   }
 
   updateBookInfo(book) {
-    this.http.put(`${Constants.hostUrl}${Constants.books}`, book).subscribe(
-      res => {
-        if (res.text() === `${Constants.success}`) {
-          return;
-        } else {
-          alert(`${MessageConstants.bookInfoWasNotUpdated}`);
-        }
-      },
-      err => {
-        alert(`${MessageConstants.serverError}`);
-        return err;
-      });
+    return this.http.put(`${Constants.hostUrl}${Constants.books}`, book);
   }
 
   removeBook(isbn) {
-    this.http.delete(`${Constants.hostUrl}${Constants.books}`, isbn).subscribe(
-      res => {
-        if (res.text() === `${Constants.success}`) {
-          alert(`${MessageConstants.bookRemoved}`);
-        } else {
-          alert(`${MessageConstants.bookNotRemoved}`);
-        }
-        return this.router.navigate([`${RouteConstants.home}`]);
-      },
-      err => {
-        alert(`${MessageConstants.serverError}`);
-        return err;
-      });
+    return this.http.delete(`${Constants.hostUrl}${Constants.books}`, isbn);
   }
 }
 

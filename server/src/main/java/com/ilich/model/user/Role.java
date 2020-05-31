@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 @JsonFormat
 public enum Role {
-    USER("user"),
-    ADMIN("admin");
+    USER("USER"),
+    ADMIN("ADMIN");
 
     private String value;
 

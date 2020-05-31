@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
+import {LoginService} from '../../services/users/login.service';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +9,14 @@ import {Title} from '@angular/platform-browser';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private title: Title) {
+  constructor(private title: Title, private loginService: LoginService) {
   }
 
   ngOnInit() {
-    this.title.setTitle('Home');
+    if (this.loginService.isLoggedIn()) {
+      this.title.setTitle('Home');
+    } else {
+      this.loginService.logout();
+    }
   }
 }

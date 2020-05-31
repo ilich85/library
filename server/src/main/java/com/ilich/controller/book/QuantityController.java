@@ -1,7 +1,9 @@
 package com.ilich.controller.book;
 
+import com.ilich.model.Result;
 import com.ilich.model.book.Quantity;
 import com.ilich.service.book.QuantityService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,20 +18,20 @@ public class QuantityController {
     }
 
     @GetMapping("/{isbn}")
-    public Quantity getQuantity(@PathVariable long isbn) {
-        return quantityService.getQuantity(isbn);
+    public ResponseEntity<?> getQuantity(@PathVariable long isbn) {
+        return ResponseEntity.ok(quantityService.getQuantity(isbn));
     }
 
     @PostMapping
-    public String addQuantity(@RequestBody Quantity quantity) {
-        return quantityService.addQuantity(quantity);
+    public ResponseEntity<?> addQuantity(@RequestBody Quantity quantity) {
+        return ResponseEntity.ok(new Result(quantityService.addQuantity(quantity)));
     }
 
     @PutMapping
-    public String updateQuantity(@RequestBody Quantity newQuantity) {
+    public ResponseEntity<?> updateQuantity(@RequestBody Quantity newQuantity) {
         Quantity oldQuantity = quantityService.getQuantity(newQuantity.getIsbn());
         int difference = newQuantity.getAmount() - oldQuantity.getAmount();
         newQuantity.setAvailable(oldQuantity.getAvailable() + difference);
-        return quantityService.updateQuantity(newQuantity);
+        return ResponseEntity.ok(new Result(quantityService.updateQuantity(newQuantity)));
     }
 }

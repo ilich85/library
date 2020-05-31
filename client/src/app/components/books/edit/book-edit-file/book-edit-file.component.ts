@@ -1,5 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {FileService} from '../../../../services/books/files.service';
+import {Constants} from '../../../../constants/constants';
+import {MessageConstants} from '../../../../constants/message-constants';
+import {DataParserService} from '../../../../services/data.parser';
 
 @Component({
   selector: 'app-book-edit-file',
@@ -12,7 +15,7 @@ export class BookEditFileComponent {
   private isbn;
   private selectedFile: File = null;
 
-  constructor(private fileService: FileService) {
+  constructor(private fileService: FileService, private  parser: DataParserService) {
   }
 
   onFileChanged(event) {
@@ -20,6 +23,14 @@ export class BookEditFileComponent {
   }
 
   updateFile() {
-    this.fileService.updateBookFile(this.isbn, this.selectedFile);
+    this.fileService.updateBookFile(this.isbn, this.selectedFile).subscribe(
+      res => {
+        const response = this.parser.parseData(res);
+        if (response.result === `${Constants.success}`) {
+          alert(`${MessageConstants.fileUpdated}`);
+        } else {
+          alert(`${MessageConstants.fileNotUpdated}`);
+        }
+      });
   }
 }

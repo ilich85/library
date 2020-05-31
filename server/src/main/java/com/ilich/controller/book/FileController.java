@@ -1,6 +1,8 @@
 package com.ilich.controller.book;
 
+import com.ilich.model.Result;
 import com.ilich.service.book.FileService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,17 +20,18 @@ public class FileController {
     }
 
     @GetMapping
-    public String getFile(@PathVariable long isbn) {
-        return "data:application/octet-stream;base64, " + Base64.getEncoder().encodeToString(fileService.get(isbn));
+    public ResponseEntity<?> getFile(@PathVariable long isbn) {
+        return ResponseEntity.ok(new Result("data:application/octet-stream;base64, "
+                + Base64.getEncoder().encodeToString(fileService.get(isbn))));
     }
 
     @PostMapping
-    public String saveFile(@PathVariable long isbn, @RequestParam MultipartFile file) {
-        return fileService.save(isbn, file);
+    public ResponseEntity<?> saveFile(@PathVariable long isbn, @RequestParam MultipartFile file) {
+        return ResponseEntity.ok(new Result(fileService.save(isbn, file)));
     }
 
     @PutMapping
-    public String updateFile(@PathVariable long isbn, @RequestParam MultipartFile file) {
-        return fileService.update(isbn, file);
+    public ResponseEntity<?> updateFile(@PathVariable long isbn, @RequestParam MultipartFile file) {
+        return ResponseEntity.ok(new Result(fileService.update(isbn, file)));
     }
 }

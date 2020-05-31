@@ -7,7 +7,7 @@
     <h5>{{book.title}}</h5>
     <h6>Authors: {{book.authors}}</h6>
     <h6>Year: {{book.year}}</h6>
-    <div class="user-buttons">
+    <div *ngIf="!isAdmin()" class="user-buttons">
       <div *ngIf="isAvailable() && !isInStore()">
         <a (click)="addToStore()" class="btn btn-primary">Add to store</a>
       </div>
@@ -16,7 +16,7 @@
         <a routerLink="/book-read/{{isbn}}" class="btn btn-primary">Read book</a>
       </div>
     </div>
-    <div class="admin-buttons">
+    <div *ngIf="isAdmin()" class="admin-buttons">
       <a routerLink="/book-edit/{{isbn}}" class="btn btn-primary">Update</a>
       <a (click)="removeBook()" class="btn btn-primary">Remove</a>
     </div>

@@ -11,13 +11,15 @@ export class ImageComponent implements OnInit {
   @Input()
   private isbn;
   private image;
+  private imageObject;
 
   constructor(private imageService: ImagesService) {
   }
 
   ngOnInit() {
     this.imageService.getImage(this.isbn).subscribe(res => {
-      this.image = res.text();
+      this.imageObject = JSON.parse(JSON.stringify(res));
+      this.image = this.imageObject.result;
     });
   }
 }
